@@ -21,12 +21,8 @@ class FileStorage(Storage):
         :param data_array: collection of strings that
         should be written as lines
         """
-        with open(self.file_name, 'w') as f:
-            for line in data_array:
-                if line.endswith('\n'):
-                    f.write(line)
-                else:
-                    f.write(line + '\n')
+        with open(self.file_name, 'w', encoding='UTF-8') as f:
+            f.write(data_array)
 
     def append_data(self, data):
         """

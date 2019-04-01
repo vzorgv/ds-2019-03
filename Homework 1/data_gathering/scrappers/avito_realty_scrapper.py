@@ -12,11 +12,13 @@ class Scrapper(object):
     def scrap_process(self, storage):
 
         # You can iterate over ids, or get list of objects
-        # from any API, or iterate throught pages of any site
+        # from any API, or iterate through pages of any site
         # Do not forget to skip already gathered data
         # Here is an example for you
-        url = 'https://otus.ru/'
-        response = requests.get(url)
+        head_url = "https://www.avito.ru/moskva/kvartiry/prodam/1-komnatnye?p="
+        page_num = "1"
+        full_url = head_url + page_num
+        response = requests.get(full_url)
 
         if not response.ok:
             logger.error(response.text)
@@ -28,4 +30,4 @@ class Scrapper(object):
 
             # save scrapped objects here
             # you can save url to identify already scrapped objects
-            storage.write_data([url + '\t' + data.replace('\n', '')])
+            storage.write_data(data)

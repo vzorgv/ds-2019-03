@@ -121,17 +121,16 @@ pep8 .
 """
 
 import logging
-
 import sys
 
-from scrappers.scrapper import Scrapper
+from scrappers.avito_realty_scrapper import Scrapper
 from storages.file_storage import FileStorage
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-SCRAPPED_FILE = 'scrapped_data.txt'
+SCRAPPED_FILE = 'scrapped_data.html'
 TABLE_FORMAT_FILE = 'data.csv'
 
 
@@ -167,7 +166,8 @@ if __name__ == '__main__':
     https://stackoverflow.com/questions/419163/what-does-if-name-main-do
     """
     logger.info("Work started")
-
+    gather_process()
+    '''
     if sys.argv[1] == 'gather':
         gather_process()
 
@@ -176,5 +176,5 @@ if __name__ == '__main__':
 
     elif sys.argv[1] == 'stats':
         stats_of_data()
-
+'''
     logger.info("work ended")
