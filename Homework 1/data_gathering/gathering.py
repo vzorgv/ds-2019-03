@@ -166,7 +166,9 @@ if __name__ == '__main__':
     https://stackoverflow.com/questions/419163/what-does-if-name-main-do
     """
     logger.info("Work started")
-    gather_process()
+
+    convert_data_to_table_format()
+
     '''
     if sys.argv[1] == 'gather':
         gather_process()
