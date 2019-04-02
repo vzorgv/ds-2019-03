@@ -125,6 +125,7 @@ import sys
 
 from scrappers.avito_realty_scrapper import Scrapper
 from storages.file_storage import FileStorage
+from parsers.html_parser import AvitoParser
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -146,9 +147,10 @@ def gather_process():
 def convert_data_to_table_format():
     logger.info("transform")
 
-    # Your code here
-    # transform gathered data from txt file to pandas DataFrame and save as csv
-    pass
+    storage = FileStorage(SCRAPPED_FILE)
+    parser = AvitoParser(["Rooms", "Square", "Floor", "Floors", "Price", "IsAgency", "PublishedDateTime", "Subway", "Address"])
+    parser.parse(storage.read_data())
+
 
 
 def stats_of_data():

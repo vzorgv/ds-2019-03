@@ -6,6 +6,8 @@ logger = logging.getLogger(__name__)
 
 
 class Scrapper(object):
+    """Class for scrapping avito.ru site for 1-room flats sailing data"""
+
     def __init__(self, skip_objects=None):
         self.skip_objects = skip_objects
 

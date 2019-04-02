@@ -12,9 +12,10 @@ class FileStorage(Storage):
         if not os.path.exists(self.file_name):
             raise StopIteration
 
-        with open(self.file_name) as f:
-            for line in f:
-                yield line.strip()
+        with open(self.file_name, encoding='UTF-8') as f:
+            data = f.read().strip()
+
+        return data
 
     def write_data(self, data_array):
         """
