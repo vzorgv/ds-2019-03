@@ -125,7 +125,7 @@ import sys
 
 from scrappers.avito_realty_scrapper import Scrapper
 from storages.file_storage import FileStorage
-from parsers.html_parser import AvitoParser
+from parsers.html_parser import AvitoRealtyParser
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -148,9 +148,10 @@ def convert_data_to_table_format():
     logger.info("transform")
 
     storage = FileStorage(SCRAPPED_FILE)
-    parser = AvitoParser(["Rooms", "Square", "Floor", "Floors", "Price", "IsAgency", "PublishedDateTime", "Subway", "Address"])
+    fields = ["Rooms", "Area", "Floor", "Floors", "Total price",
+              "Is agency", "Subway", "Subway distance (m)", "Address"]
+    parser = AvitoRealtyParser(fields)
     parser.parse(storage.read_data())
-
 
 
 def stats_of_data():
@@ -169,6 +170,7 @@ if __name__ == '__main__':
     """
     logger.info("Work started")
 
+    gather_process()
     convert_data_to_table_format()
 
     '''

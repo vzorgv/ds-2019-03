@@ -17,7 +17,7 @@ class Scrapper(object):
         # from any API, or iterate through pages of any site
         # Do not forget to skip already gathered data
         # Here is an example for you
-        head_url = "https://www.avito.ru/moskva/kvartiry/prodam/1-komnatnye?p="
+        head_url = "https://www.avito.ru/moskva/kvartiry/prodam?p="
         page_num = "1"
         full_url = head_url + page_num
         response = requests.get(full_url)
