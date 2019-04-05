@@ -29,9 +29,5 @@ class FileStorage(Storage):
         """
         :param data: string
         """
-        with open(self.file_name, 'a') as f:
-            for line in data:
-                if line.endswith('\n'):
-                    f.write(line)
-                else:
-                    f.write(line + '\n')
+        with open(self.file_name, 'a', encoding='UTF-8') as f:
+            f.write(data + '\n')

@@ -149,7 +149,7 @@ def convert_data_to_table_format():
 
     storage = FileStorage(SCRAPPED_FILE)
     fields = ["Rooms", "Area", "Floor", "Floors", "Total price",
-              "Is agency", "Subway", "Subway distance (m)", "Address"]
+              "Subway", "Subway distance (m)", "Address"]
     parser = AvitoRealtyParser(fields)
     parser.parse(storage.read_data())
 
