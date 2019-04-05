@@ -122,6 +122,7 @@ pep8 .
 
 import logging
 import sys
+import pandas as pd
 
 from scrappers.avito_realty_scrapper import Scrapper
 from storages.file_storage import FileStorage
@@ -151,12 +152,19 @@ def convert_data_to_table_format():
     fields = ["Rooms", "Area", "Floor", "Floors", "Total price",
               "Subway", "Subway distance (m)", "Address"]
     parser = AvitoRealtyParser(fields)
-    parser.parse(storage.read_data())
+    parsed_data = parser.parse(storage.read_data())
+    frame = pd.DataFrame(parsed_data, columns=fields)
+    frame["Rooms"] = frame["Rooms"].astype(dtype="int8", errors="ignore")
+
+    frame.to_csv(TABLE_FORMAT_FILE, index=False)
+    logger.info(f"File {TABLE_FORMAT_FILE} created")
 
 
 def stats_of_data():
     logger.info("stats")
 
+    frame = pd.read_csv(TABLE_FORMAT_FILE)
+    print(frame.describe())
     # Your code here
     # Load pandas DataFrame and print to stdout different statistics about the data.
     # Try to think about the data and use not only describe and info.
@@ -170,10 +178,6 @@ if __name__ == '__main__':
     """
     logger.info("Work started")
 
-    gather_process()
-    convert_data_to_table_format()
-
-    '''
     if sys.argv[1] == 'gather':
         gather_process()
 
@@ -182,5 +186,5 @@ if __name__ == '__main__':
 
     elif sys.argv[1] == 'stats':
         stats_of_data()
-'''
+
     logger.info("work ended")

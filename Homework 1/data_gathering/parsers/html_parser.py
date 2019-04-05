@@ -57,16 +57,13 @@ class AvitoRealtyParser(Parser):
                     if idx > 0:
                         values["Subway"] = address[:idx - 1]
 
-            print(values)
+            # print(values)
             ret.append(values)
 
         return ret
 
     def __parse_distance(self, str_distance):
-        ret = None
-        str_value = str_distance
         factor = 1.0
-
         idx = str_distance.find(" м")
         if idx != -1:
             str_value = str_distance.replace(" м", "")
