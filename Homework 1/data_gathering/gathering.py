@@ -154,7 +154,6 @@ def convert_data_to_table_format():
     parser = AvitoRealtyParser(fields)
     parsed_data = parser.parse(storage.read_data())
     frame = pd.DataFrame(parsed_data, columns=fields)
-    frame["Rooms"] = frame["Rooms"].astype(dtype="int8", errors="ignore")
 
     frame.to_csv(TABLE_FORMAT_FILE, index=False)
     logger.info(f"File {TABLE_FORMAT_FILE} created")
@@ -164,11 +163,14 @@ def stats_of_data():
     logger.info("stats")
 
     frame = pd.read_csv(TABLE_FORMAT_FILE)
-    print(frame.describe())
-    # Your code here
-    # Load pandas DataFrame and print to stdout different statistics about the data.
-    # Try to think about the data and use not only describe and info.
-    # Ask yourself what would you like to know about this data (most frequent word, or something else)
+    print("Статистика цен 1-к кв (млн. руб.):")
+    print((frame.loc[frame["Rooms"] == 1]["Total price"] / 1000000).describe())
+
+    print("\nСредняя цена кв.м по метро:")
+    price_subway = frame.loc[frame["Subway"] != "NaN"][["Total price", "Area", "Subway"]]
+    price_subway["Price sqm"] = price_subway["Total price"] / price_subway["Area"]
+    price_subway = price_subway.groupby("Subway").mean()
+    print(price_subway["Price sqm"])
 
 
 if __name__ == '__main__':

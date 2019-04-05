@@ -15,7 +15,8 @@ class Scrapper(object):
         base_url = "https://www.avito.ru/moskva/kvartiry/prodam?p="
         headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0"}
 
-        for page_num in range(1, 99):
+        last_page = 98
+        for page_num in range(1, last_page + 1):
 
             full_url = base_url + str(page_num)
 
@@ -26,13 +27,15 @@ class Scrapper(object):
                 # then continue process, or retry, or fix your code
 
             else:
-                logger.info(full_url)
+                logger.info(f"Scrapping page {page_num} of {last_page}")
                 # Note: here json can be used as response.json
                 data = response.text
 
                 # save scrapped objects here
                 # you can save url to identify already scrapped objects
-                # storage.write_data(data)
-                storage.append_data(data)
+                if page_num == 1:
+                    storage.write_data(data)
+                else:
+                    storage.append_data(data)
 
-            time.sleep(1)
+            time.sleep(0.5)

@@ -1,10 +1,10 @@
 from parsers.parser import Parser
-
 from bs4 import BeautifulSoup
 
 
 class AvitoRealtyParser(Parser):
-    __DESCRIPTION_ROOMS = {"1-к квартира": 1, "2-к квартира": 2, "3-к квартира": 3, "4-к квартира": 4}
+    __DESCRIPTION_ROOMS = {"1-к квартира": 1, "2-к квартира": 2,
+                           "3-к квартира": 3, "4-к квартира": 4, "5-к квартира": 5}
 
     def parse(self, data):
         """
@@ -45,7 +45,7 @@ class AvitoRealtyParser(Parser):
 
             address = str(item_address.text).strip()
             values["Address"] = address
-            values["Subway"] = None
+            values["Subway"] = ""
             values["Subway distance (m)"] = None
 
             if is_subway:
@@ -57,7 +57,6 @@ class AvitoRealtyParser(Parser):
                     if idx > 0:
                         values["Subway"] = address[:idx - 1]
 
-            # print(values)
             ret.append(values)
 
         return ret
@@ -89,7 +88,7 @@ class AvitoRealtyParser(Parser):
         if description_list[0] in AvitoRealtyParser.__DESCRIPTION_ROOMS:
             labeled_values[field_name] = AvitoRealtyParser.__DESCRIPTION_ROOMS[description_list[0]]
         else:
-            labeled_values[field_name] = None
+            labeled_values[field_name] = 0
 
         # area size
         field_name = "Area"

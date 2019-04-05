@@ -1,5 +1,4 @@
 import unittest
-
 from parsers.filter_parser import FilterParser
 
 
